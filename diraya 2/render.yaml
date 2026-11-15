@@ -1,0 +1,8 @@
+# Render blueprint: one web service built from the Dockerfile (free plan works: ~300 MB RAM).
+services:
+  - type: web
+    name: diraya
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/status
+    autoDeploy: true

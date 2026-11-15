@@ -1,0 +1,164 @@
+/* =====================================================================================
+   Diraya · دِراية — Arabic typography layer: Thmanyah (ثمانية)
+   -------------------------------------------------------------------------------------
+   Thmanyah Serif Display  → Arabic headlines, cinematic statements, Experience Mode, big figures
+   Thmanyah Serif Text     → small editorial headings (17–24 px), where Display's fine details close up
+   Thmanyah Sans           → navigation, buttons, descriptions, labels, charts
+
+   Applies to the Arabic interface only (html[lang="ar"]); English is untouched.
+   The دِراية wordmark also uses Thmanyah Serif Display (Bold), in both languages.
+   ===================================================================================== */
+
+/* The official Thmanyah web fonts (woff2 from the official package), under their exact internal family
+   names. The files are YOUR copy in fonts-local/thmanyah/ (added by backend/scripts/add_thmanyah.py,
+   or automatically by run.sh from ~/Downloads). The local Diraya server serves them only to a browser on
+   this same computer — as standard web fonts, which Safari, Chrome and Firefox all load.
+   They are never in the project ZIP, git or Docker image: the Thmanyah licence forbids redistribution. */
+@font-face { font-family: "thmanyah serif display"; src: url("/local-fonts/thmanyahserifdisplay-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif display"; src: url("/local-fonts/thmanyahserifdisplay-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif display"; src: url("/local-fonts/thmanyahserifdisplay-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif display"; src: url("/local-fonts/thmanyahserifdisplay-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif display"; src: url("/local-fonts/thmanyahserifdisplay-Black.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif text"; src: url("/local-fonts/thmanyahseriftext-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif text"; src: url("/local-fonts/thmanyahseriftext-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif text"; src: url("/local-fonts/thmanyahseriftext-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif text"; src: url("/local-fonts/thmanyahseriftext-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah serif text"; src: url("/local-fonts/thmanyahseriftext-Black.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah sans"; src: url("/local-fonts/thmanyahsans-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah sans"; src: url("/local-fonts/thmanyahsans-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah sans"; src: url("/local-fonts/thmanyahsans-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah sans"; src: url("/local-fonts/thmanyahsans-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "thmanyah sans"; src: url("/local-fonts/thmanyahsans-Black.woff2") format("woff2"); font-weight: 900; font-style: normal; font-display: block; }
+
+:root {
+  /* Inter / Inter Display contain no Arabic: they only draw symbols Thmanyah lacks (← → ↑ Δ ² ≈) */
+  --f-th-display: "thmanyah serif display", "Inter Display", serif;
+  --f-th-text: "thmanyah serif text", "Inter", serif;
+  --f-th-sans: "thmanyah sans", "Inter", sans-serif;
+}
+:root[lang="ar"] { --font-ui: var(--f-th-sans); --font-display: var(--f-th-display); }
+
+/* ---------------------------------------------------------------- base rhythm
+   Arabic is never letter-spaced; Naskh-based serifs need taller lines for dots and harakat. */
+:root[lang="ar"] body { font: 400 16px/1.85 var(--f-th-sans); font-feature-settings: "kern", "liga", "calt"; }
+:root[lang="ar"] :is(.xp-title, .xp-hook-line, .xp-count, .pf-display, .sec-title, .kpi-v, .trust-big, .reading-big, .reading-word, .chapter-head h2, .case-id, .stop strong, .overline, .xp-kicker) { letter-spacing: 0; }
+:root[lang="ar"] :is(h1, h2, h3) { font-kerning: normal; text-wrap: balance; }
+:root[lang="ar"] p { text-wrap: pretty; }
+:root[lang="ar"] .overline { font: 500 13px/1.5 var(--f-th-sans); }
+:root[lang="ar"] :is(.btn-ember, .btn-ink, .btn-light, .btn-ghost) { font: 500 15.5px/1 var(--f-th-sans); }
+:root[lang="ar"] .mainnav a { font-family: var(--f-th-sans); font-weight: 500; font-size: 15px; }
+:root[lang="ar"] .fine { font-size: 13px; line-height: 1.8; }
+
+/* ================================================================= EXPERIENCE MODE */
+/* Scene 1 — the opening statement. One serif voice, two registers:
+   the first line is set heavy and large, with «لا تُرى» deliberately faint (the signal you cannot see);
+   the answer arrives in ember at full display weight. */
+:root[lang="ar"] .xp-hook { gap: 0; }
+:root[lang="ar"] .xp-hook-line {
+  font: 700 min(9vw, 15.5vh, 150px)/1.32 var(--f-th-display);
+  padding-block: .06em .1em;           /* room for dots and harakat at display sizes */
+  max-width: 14em;
+}
+:root[lang="ar"] .xp-hook-line .xp-unseen { color: var(--mist-3); font-weight: 300; transition: color 1.6s var(--ease); }
+:root[lang="ar"] .xp-stage[data-step="hook1"] .xp-hook-line .xp-unseen { animation: unseen 3.2s .5s var(--ease) both; }
+@keyframes unseen { from { color: rgba(111, 139, 130, .0); } to { color: var(--mist-3); } }
+:root[lang="ar"] .xp-hook-line.is-dim { font: 400 min(3.6vw, 6vh, 56px)/1.4 var(--f-th-display); color: var(--mist-2); padding: 0; }
+:root[lang="ar"] .xp-hook-line.is-dim .xp-unseen { color: var(--mist-3); font-weight: 300; }
+:root[lang="ar"] .xp-stage[data-step="hook2"] .xp-hook-line.ember { font: 900 min(8.6vw, 13.6vh, 140px)/1.3 var(--f-th-display); margin-top: .12em; }
+:root[lang="ar"] .xp-stage[data-step="hook2"] .xp-lockup { margin-top: min(3.2vh, 30px); }
+:root[lang="ar"] .xp-lockup-ar { font-size: 50px; line-height: 1.2; }   /* wordmark: Thmanyah Serif Display Bold */
+:root[lang="ar"] .xp-tagline { font: 400 26px/1.4 var(--f-th-display); color: var(--mist); padding-inline-start: 22px; }
+:root[lang="ar"] .xp-hook-sub { font: 400 17.5px/1.9 var(--f-th-sans); max-width: 54ch; margin: min(2.6vh, 24px) 0 min(3.4vh, 32px); }
+:root[lang="ar"] .xp-hook .btn-ember { font: 700 18px/1 var(--f-th-sans); height: 62px; }
+
+/* Scenes 2–4 — statements, counts and readouts share one display voice */
+:root[lang="ar"] .xp-kicker { font: 500 14px/1.4 var(--f-th-sans); }
+:root[lang="ar"] .xp-title { font: 700 clamp(32px, 3.7vw, 58px)/1.42 var(--f-th-display); }
+:root[lang="ar"] .xp-body { font: 400 18px/1.95 var(--f-th-sans); max-width: 44ch; }
+:root[lang="ar"] .xp-count { font: 500 clamp(84px, 10.4vw, 164px)/1.12 var(--f-th-display); margin-bottom: 0; font-variant-numeric: lining-nums tabular-nums; }
+:root[lang="ar"] .xp-pick b { font: 500 26px/1.2 var(--f-th-display); }
+:root[lang="ar"] .xp-pick span { font-size: 13.5px; }
+:root[lang="ar"] .xp-case-meta { font-size: 15px; }
+:root[lang="ar"] .xp-signal strong { font: 700 18px/1.5 var(--f-th-text); }
+:root[lang="ar"] .xp-signal-value { font: 500 34px/1.35 var(--f-th-display); }
+:root[lang="ar"] .xp-signal-value small { font: 400 14px var(--f-th-sans); }
+:root[lang="ar"] .xp-readout-num { font: 500 104px/1.15 var(--f-th-display); }
+:root[lang="ar"] .xp-readout-label { font-size: 16px; }
+:root[lang="ar"] .xp-gauge-point b { font: 500 62px/1.25 var(--f-th-display); }
+:root[lang="ar"] .xp-dip strong { font: 700 20px/1.5 var(--f-th-text); }
+:root[lang="ar"] .xp-capstone strong { font: 900 48px/1.35 var(--f-th-display); }
+:root[lang="ar"] .xp-capstone span, :root[lang="ar"] .xp-capstone em { font-family: var(--f-th-sans); }
+:root[lang="ar"] .xp-pillar-a { font: 700 27px/1.4 var(--f-th-display); }
+:root[lang="ar"] .xp-pillar-q { font-size: 13.5px; line-height: 1.6; }
+:root[lang="ar"] .xp-scene-name { font: 500 14px var(--f-th-sans); }
+:root[lang="ar"] .xp-hint { font-size: 12px; }
+:root[lang="ar"] .xp-q-who span { font-size: 13px; }
+:root[lang="ar"] .xp-actions { line-height: 1.6; gap: 4px; }
+:root[lang="ar"] .xp-actions-title { margin-top: 18px; }
+:root[lang="ar"] .xp-queue li { padding-block: 10px; }
+
+/* ================================================================= EXPLORE PLATFORM */
+:root[lang="ar"] .pf-display { font: 700 clamp(40px, 4.9vw, 74px)/1.38 var(--f-th-display); }
+:root[lang="ar"] .pf-display.small { font-size: clamp(30px, 3.1vw, 44px); }
+:root[lang="ar"] .pf-display .ember, :root[lang="ar"] .pf-display b { font-weight: 900; }
+:root[lang="ar"] .pf-lead, :root[lang="ar"] .pf-hero p { font-size: 18px; line-height: 1.95; }
+:root[lang="ar"] .sec-title { font: 700 clamp(30px, 3.1vw, 44px)/1.42 var(--f-th-display); }
+:root[lang="ar"] .kpi-v { font: 500 clamp(48px, 5.2vw, 78px)/1.22 var(--f-th-display); font-variant-numeric: tabular-nums; }
+:root[lang="ar"] .kpi strong, :root[lang="ar"] .kpi-l { font-family: var(--f-th-sans); }
+:root[lang="ar"] .legend-count { font: 500 32px/1.4 var(--f-th-display); }
+:root[lang="ar"] .pf-start-num b { font: 500 24px/1.3 var(--f-th-display); }
+:root[lang="ar"] .trust-big { font: 500 72px/1.3 var(--f-th-display); }
+:root[lang="ar"] .stop strong { font-family: var(--f-th-display); font-weight: 700; line-height: 1.4; }
+:root[lang="ar"] .verdict strong { font: 700 36px/1.4 var(--f-th-display); }
+:root[lang="ar"] .scrub-label strong { font: 700 21px/1.5 var(--f-th-text); }
+:root[lang="ar"] .chapter-n { font: 500 44px/1.15 var(--f-th-display); }
+:root[lang="ar"] .chapter-head h2 { font: 700 clamp(32px, 3.4vw, 50px)/1.42 var(--f-th-display); }
+:root[lang="ar"] .signal h3 { font: 700 20px/1.5 var(--f-th-text); }
+:root[lang="ar"] .signal-value { font: 500 36px/1.4 var(--f-th-display); }
+:root[lang="ar"] .reading-big { font: 500 72px/1.3 var(--f-th-display); }
+:root[lang="ar"] .reading-word { font: 700 48px/1.4 var(--f-th-display); }
+:root[lang="ar"] .sens-name { font: 700 18px/1.5 var(--f-th-text); }
+:root[lang="ar"] .outcome strong { font: 700 20px/1.6 var(--f-th-text); }
+:root[lang="ar"] .brief-cat strong { font: 900 38px/1.4 var(--f-th-display); }
+:root[lang="ar"] .mstep-n { font: 500 40px/1.15 var(--f-th-display); }
+:root[lang="ar"] .mstep h3 { font: 700 22px/1.5 var(--f-th-text); }
+:root[lang="ar"] .results td.q { font: 700 18px/1.5 var(--f-th-text); }
+:root[lang="ar"] .results th { font: 500 13px/1.5 var(--f-th-sans); }
+:root[lang="ar"] .pal-input { font: 500 21px var(--f-th-sans); }
+/* dashboard labels: Sans, never below 12 px, generous line-height for Arabic descenders */
+:root[lang="ar"] :is(.att-meta, .att-who span, .legend-desc, .health-legend span, .chart text, .field-axis, .field-threshold) { font-family: var(--f-th-sans); }
+:root[lang="ar"] .field-axis, :root[lang="ar"] .field-threshold { font-size: 12px; }
+
+/* ---------------------------------------------------------------- small screens */
+@media (max-width: 960px) {
+  :root[lang="ar"] .mainnav a { font-size: 14px; padding-inline: 12px; }
+  :root[lang="ar"] .xp-hook-line { font-size: min(11vw, 12vh, 96px); }
+  :root[lang="ar"] .xp-stage[data-step="hook2"] .xp-hook-line.ember { font-size: min(10.5vw, 11vh, 92px); }
+  :root[lang="ar"] .xp-hook-line.is-dim { font-size: min(5.4vw, 5vh, 40px); }
+  :root[lang="ar"] .xp-tagline { font-size: 21px; }
+  :root[lang="ar"] .xp-count { font-size: clamp(64px, 16vw, 120px); }
+  :root[lang="ar"] .xp-readout-num { font-size: 76px; }
+  :root[lang="ar"] .xp-capstone strong { font-size: 38px; }
+  :root[lang="ar"] .trust-big, :root[lang="ar"] .reading-big { font-size: 56px; }
+}
+@media (max-width: 560px) {
+  :root[lang="ar"] .xp-hook-line { font-size: 13vw; line-height: 1.38; }
+  :root[lang="ar"] .xp-stage[data-step="hook2"] .xp-hook-line.ember { font-size: 12.4vw; }
+  :root[lang="ar"] .xp-hook-line.is-dim { font-size: 7.2vw; }
+  :root[lang="ar"] .xp-lockup { flex-wrap: wrap; justify-content: center; gap: 12px; }
+  :root[lang="ar"] .xp-tagline { border: 0; padding: 0; font-size: 20px; }
+  :root[lang="ar"] .xp-title { font-size: 30px; }
+  :root[lang="ar"] .pf-display { font-size: 36px; }
+  :root[lang="ar"] .kpi-v { font-size: 52px; }
+}
+
+/* ---------------------------------------------------------------- typography switch (footer) */
+.type-ctl { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding-top: 14px; border-top: 1px solid var(--night-line); }
+.type-ctl-label { color: var(--mist-2); }
+.type-ctl-seg { display: inline-flex; border: 1px solid rgba(233, 240, 234, .22); border-radius: 999px; padding: 2px; }
+.type-ctl-seg button { border: 0; background: transparent; color: var(--mist-2); border-radius: 999px; padding: 4px 14px; font-size: 12.5px; }
+.type-ctl-seg button.is-on { background: var(--mist); color: var(--night); font-weight: 600; }
+.type-ctl-state { display: inline-flex; align-items: center; gap: 8px; }
+.type-ctl-state i { width: 7px; height: 7px; border-radius: 50%; background: var(--saffron); }
+.type-ctl-state.ok i { background: var(--mint); }
+@media print { .type-ctl { display: none; } }
